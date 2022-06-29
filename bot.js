@@ -1,10 +1,10 @@
-const Discord = require('discord.js');
-const { token } = require('./token.json');
+const Discord = require('discord.js');      //#まノdiscord.py结ぉ盽计(const)Discord
+const { token } = require('./token.json');      //#穝 Discord(discord.js)Clientよ猭礛盢Clientよ猭挡狦结ぉclient硂盽计璶まノdiscord.js┏Client钡㊣client
 const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] });
 
 // 硈絬ㄆン
 client.on('ready', () => {
-    console.log("->Logged in as ${client.user.tag}!");
+    console.log(`->Logged in as ${client.user.tag}!`);
 });
 
 // 讽 Bot 钡Μ癟ㄆン
