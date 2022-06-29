@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const { token } = require('./token.json');
-const client = new Discord.Client()
+const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] });
 
 // 連上線時的事件
 client.on('ready', () => {
