@@ -11,8 +11,10 @@ client.on('ready', () => {
 client.on('message', msg => {
     // 如果訊息的內容是 'ping'
     if (msg.content === 'ping') {
+        console.log(`->Reply "pong"!`)
         // 則 Bot 回應 'Pong'
-        msg.reply('pong');
+        msg.channel.send('pong');       //#不會回覆發送者
+//*        msg.reply('pong');       //#會回覆發送者
     }
 });
 
