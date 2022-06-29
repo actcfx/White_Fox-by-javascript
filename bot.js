@@ -4,7 +4,7 @@ const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] });
 
 // 連上線時的事件
 client.on('ready', () => {
-    console.log(`Logged in as ${client.user.tag}!`);
+    console.log("->Logged in as ${client.user.tag}!");
 });
 
 // 當 Bot 接收到訊息時的事件
