@@ -1,21 +1,62 @@
-const Discord = require('discord.js');      //#¤Ş¥Îdiscord.py¡A½á¤©¨ì±`¼Æ(const)Discord¤W
-const { token } = require('./token.json');      //#·s«Å§i¤@­Ó Discord(discord.js)¤UªºClient¤èªk¡AµM«á±NClient¤èªkªºµ²ªG½á¤©¨ìclient³o­Ó±`¼Æ¤W¡A­n¤Ş¥Îdiscord.js©³¤UªºClient¡A¥i¥Hª½±µ©I¥sclient
+const Discord = require('discord.js');      //# å¼•ç”¨discord.pyä¸¦è³¦äºˆåˆ°å¸¸æ•¸Discordä¸Š
+const { token } = require('./token.json');      //# å®£å‘Šä¸€å€‹Discord(discord.js)ä¸‹çš„Clientæ–¹æ³•ï¼Œç„¶å¾Œå°‡Clientæ–¹æ³•çš„çµæœè³¦äºˆåˆ°clienté€™å€‹å¸¸æ•¸ä¸Šï¼Œä¹‹å¾Œè¦å¼•ç”¨discord.jsåº•ä¸‹çš„Clientï¼Œå¯ä»¥ç›´æ¥å‘¼å«clientã€‚
 const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] });
 
-// ³s¤W½u®Éªº¨Æ¥ó
+// é€£ä¸Šç·šæ™‚çš„äº‹ä»¶
 client.on('ready', () => {
-    console.log(`->Logged in as ${client.user.tag}!`);
+    console.log(`->Logged in as ${client.user.tag}!`)
 });
 
-// ·í Bot ±µ¦¬¨ì°T®§®Éªº¨Æ¥ó
+// ç•¶æœ‰äººå‚³é€è¨Šæ¯æ™‚çš„äº‹ä»¶
 client.on('messageCreate', msg => {
-    if(msg.member.user.bot) return; //#¦pªG¨Ó¦Û©ó¾÷¾¹¤H
-
-    if (msg.content === 'ping' && msg.channel.id === '991002552919281736') {   //#¦pªG°T®§ªº¤º®e¬O 'ping'¡A¥B¨Ó¦Û 'general' ÀW¹D
-        console.log(`->Reply "pong"!`)
-        msg.channel.send('ping');       //#¤£·|¦^ÂĞµo°eªÌ
-//*        msg.reply('pong');       //#·|¦^ÂĞµo°eªÌ
+    // å‰ç½®åˆ¤æ–·
+    try{
+        if (!msg.guild || !msg.member) return;  //# å¦‚æœè¨Šæ¯ä¸­å­˜åœ¨guildï¼ˆç¾¤çµ„ï¼‰å…ƒç´  -> ç§èŠ -> return
+        if (msg.member.user.bot) return; //# å¦‚æœè¨Šæ¯ç”±botç™¼é€ -> return
+    } catch (err) {
+        return;
+    }
+    // å­—ä¸²åˆ†æ
+    try{
+        const prefix = '/';     //# å®šç¾©å‰ç¶´è©
+        if (msg.content.substring(0, prefix.length) === prefix)     //# åˆ¤æ–·æ˜¯å¦æœ‰å‰ç¶´è©
+        {
+            const cmd = msg.content.substring(prefix.length).split(' ');     //# ä»¥' 'åˆ†å‰²å‰ç¶´ä»¥å¾Œçš„å­—ä¸² => cmd
+            if (msg.channel.id === '992026961494941726')
+            {
+                switch (cmd[0]) {
+                    case 'ping':
+                        msg.channel.send('ping');
+                        console.log(`-> Send 'ping' to '${msg.channel.name}'`)
+                        break;
+                    case 'è€å©†':
+                        msg.reply("ä½ æ²’æœ‰è€å©†ï¼");
+                        console.log(`-> Reply 'ä½ æ²’æœ‰è€å©†ï¼' to ${msg.author.tag}`)
+                        break;
+                    case 'MyAvatar':
+                        const avatar = GetMyAvatar(msg);
+                        if (avatar.files) msg.channel.send(`${msg.author}`, avatar)
+                        break;
+                }
+            }
+        }
+    } catch (err) {
+        console.log('OnMessageError', err)
     }
 });
+
+function GetMyAvatar(msg)
+{
+    try {
+        return {
+            files: [{
+                attachment: msg.author.displayAvatarURL(),
+                name: 'avatar.jpg'
+            }]
+        }
+    } catch (err) {
+        console.log('GetMyAvatarError')
+    }
+}
 
 client.login(token);
