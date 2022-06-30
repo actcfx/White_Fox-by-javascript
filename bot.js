@@ -13,7 +13,7 @@ client.on('message', msg => {
     if (msg.content === 'ping') {
         console.log(`->Reply "pong"!`)
         // 則 Bot 回應 'Pong'
-        msg.channel.send('pong');       //#不會回覆發送者
+        msg.channel.send('ping');       //#不會回覆發送者
 //*        msg.reply('pong');       //#會回覆發送者
     }
 });
