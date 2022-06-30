@@ -8,11 +8,11 @@ client.on('ready', () => {
 });
 
 // 當 Bot 接收到訊息時的事件
-client.on('message', msg => {
-    // 如果訊息的內容是 'ping'
-    if (msg.content === 'ping') {
+client.on('messageCreate', msg => {
+    if(msg.member.user.bot) return; //#如果來自於機器人
+
+    if (msg.content === 'ping' && msg.channel.id === '991002552919281736') {   //#如果訊息的內容是 'ping'，且來自 'general' 頻道
         console.log(`->Reply "pong"!`)
-        // 則 Bot 回應 'Pong'
         msg.channel.send('ping');       //#不會回覆發送者
 //*        msg.reply('pong');       //#會回覆發送者
     }
