@@ -1,2 +1,5 @@
 .vscode
-token.js
+token.json
+node_modules
+package.json
+package-lock.json
