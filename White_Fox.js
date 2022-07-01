@@ -10,14 +10,14 @@ client.on('ready', () => {
 // 當有人傳送訊息時的事件
 client.on('messageCreate', msg => {
     // 前置判斷
-    try{
+    try {
         if (!msg.guild || !msg.member) return;  //# 如果訊息中存在guild（群組）元素 -> 私聊 -> return
         if (msg.member.user.bot) return; //# 如果訊息由bot發送 -> return
     } catch (err) {
         return;
     }
     // 字串分析
-    try{
+    try {
         const prefix = '/';     //# 定義前綴詞
         if (msg.content.substring(0, prefix.length) === prefix)     //# 判斷是否有前綴詞
         {
@@ -35,7 +35,8 @@ client.on('messageCreate', msg => {
                         break;
                     case 'MyAvatar':
                         const avatar = GetMyAvatar(msg);
-                        if (avatar.files) msg.channel.send(`${msg.author}`, avatar)
+                        if (avatar.files) msg.reply(avatar)
+                        console.log(`-> Reply 'avatar' to ${msg.author.tag}`)
                         break;
                 }
             }
