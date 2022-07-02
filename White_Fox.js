@@ -23,10 +23,9 @@ client.on('messageCreate', msg => {
     // 字串分析
     try {
         const prefix = '/';     //# 定義前綴詞
-        if (msg.content.substring(0, prefix.length) === prefix)     //# 判斷是否有前綴詞
-        {
+        if (msg.content.substring(0, prefix.length) === prefix) {     //# 判斷是否有前綴詞
             const cmd = msg.content.substring(prefix.length).split(' ');     //# 以' '分割前綴以後的字串 => cmd
-            if (msg.channel.id === '992721929008066591')
+            if (msg.channel.id === '992721929008066591' || msg.channel.id === '992026961494941726')
             {
                 switch (cmd[0]) {
                     case 'ping':
@@ -34,7 +33,8 @@ client.on('messageCreate', msg => {
                         console.log(`-> Send 'ping' to '${msg.channel.name}'`)
                         break;
                     case '老婆':
-                        msg.reply("你沒有老婆！");
+                        if(msg.author.id === '407881227270356994') msg.reply("嗨！");
+                        else msg.reply("你沒有老婆！");
                         console.log(`-> Reply '你沒有老婆！' to ${msg.author.tag}`)
                         break;
                     case 'MyAvatar':
@@ -42,12 +42,22 @@ client.on('messageCreate', msg => {
                         if (avatar.files) msg.reply(avatar);
                         console.log(`-> Reply ${msg.author.tag}'s avatar to ${msg.author.tag}`)
                         break;
+                    case 'BotAvatar':
+                        const botavatar = GetBotAvatar();
+                        if(botavatar.files) msg.reply(botavatar);
+                        console.log(`-> reply ${client.user.tag}'s avatar to ${msg.author.tag}`)
+                        break;
                     case 'luck':
                         luck = Luck();
                         if(luck.files) msg.reply(luck);
                         console.log(`-> Get luck successful`)
+                        break;
                 }
             }
+        }
+        else if (msg.content === 'mdfk') {
+            msg.channel.send('mdfk');
+            console.log(`-> Send 'mdfk' to '${msg.channel.name}'`)
         }
     } catch (err) {
         console.log('OnMessageError', err)
@@ -65,6 +75,15 @@ function GetMyAvatar(msg)
         }
     } catch (err) {
         console.log('GetMyAvatarError')
+    }
+}
+
+function GetBotAvatar(){
+    return{
+        files:[{
+            attachment: client.user.displayAvatarURL(),
+            name: 'Botavatar.jpg'
+        }]
     }
 }
 
