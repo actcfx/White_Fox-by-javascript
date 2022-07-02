@@ -26,7 +26,7 @@ client.on('messageCreate', msg => {
         if (msg.content.substring(0, prefix.length) === prefix)     //# 判斷是否有前綴詞
         {
             const cmd = msg.content.substring(prefix.length).split(' ');     //# 以' '分割前綴以後的字串 => cmd
-            if (msg.channel.id === '992026961494941726')
+            if (msg.channel.id === '992721929008066591')
             {
                 switch (cmd[0]) {
                     case 'ping':
@@ -40,7 +40,7 @@ client.on('messageCreate', msg => {
                     case 'MyAvatar':
                         const avatar = GetMyAvatar(msg);
                         if (avatar.files) msg.reply(avatar);
-                        console.log(`-> Reply 'avatar' to ${msg.author.tag}`)
+                        console.log(`-> Reply ${msg.author.tag}'s avatar to ${msg.author.tag}`)
                         break;
                     case 'luck':
                         luck = Luck();
@@ -69,7 +69,7 @@ function GetMyAvatar(msg)
 }
 
 function Luck(){
-    _luck = Math.floor(Math.random()*6)
+    _luck = Math.floor(Math.random()*7)
     return{
         files: [{
             attachment: `./luckimage/luck_${_luck}.jpg`
