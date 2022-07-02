@@ -7,6 +7,10 @@ client.on('ready', () => {
     console.log(`->Logged in as ${client.user.tag}!`)
 });
 
+client.on('guildMemberAdd', member =>{
+    console.log(`-> ${member} join`)
+})
+
 // 當有人傳送訊息時的事件
 client.on('messageCreate', msg => {
     // 前置判斷
@@ -35,9 +39,13 @@ client.on('messageCreate', msg => {
                         break;
                     case 'MyAvatar':
                         const avatar = GetMyAvatar(msg);
-                        if (avatar.files) msg.reply(avatar)
+                        if (avatar.files) msg.reply(avatar);
                         console.log(`-> Reply 'avatar' to ${msg.author.tag}`)
                         break;
+                    case 'luck':
+                        luck = Luck();
+                        if(luck.files) msg.reply(luck);
+                        console.log(`-> Get luck successful`)
                 }
             }
         }
@@ -57,6 +65,15 @@ function GetMyAvatar(msg)
         }
     } catch (err) {
         console.log('GetMyAvatarError')
+    }
+}
+
+function Luck(){
+    _luck = Math.floor(Math.random()*6)
+    return{
+        files: [{
+            attachment: `./luckimage/luck_${_luck}.jpg`
+        }]
     }
 }
 
