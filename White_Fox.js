@@ -25,8 +25,8 @@ client.on('messageCreate', msg => {
         const prefix = '/';     //# 定義前綴詞
         if (msg.content.substring(0, prefix.length) === prefix) {     //# 判斷是否有前綴詞
             const cmd = msg.content.substring(prefix.length).split(' ');     //# 以' '分割前綴以後的字串 => cmd
-            if (msg.channel.id === '992721929008066591' || msg.channel.id === '992026961494941726')
-            {
+//            if (msg.channel.id === '992721929008066591' || msg.channel.id === '992026961494941726')
+//            {
                 switch (cmd[0]) {
                     case 'ping':
                         msg.channel.send('ping');
@@ -53,11 +53,15 @@ client.on('messageCreate', msg => {
                         console.log(`-> Get luck successful`)
                         break;
                 }
-            }
+//            }
         }
         else if (msg.content === 'mdfk') {
             msg.channel.send('mdfk');
             console.log(`-> Send 'mdfk' to '${msg.channel.name}'`)
+        }
+        else if(msg.content === '好笑嗎') {
+            msg.channel.send('好笑嗎');
+            console.log(`-> Send '好笑嗎' to '${msg.channel.name}'`)
         }
     } catch (err) {
         console.log('OnMessageError', err)
