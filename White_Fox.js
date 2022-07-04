@@ -95,7 +95,7 @@ function Luck(){
     _luck = Math.floor(Math.random()*7)
     return{
         files: [{
-            attachment: `./luckimage/luck_${_luck}.jpg`
+            attachment: `./luck_image/luck_${_luck}.jpg`
         }]
     }
 }
