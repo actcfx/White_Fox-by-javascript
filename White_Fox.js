@@ -14,7 +14,12 @@ client.on('ready', () => {
 });
 
 client.on('guildMemberAdd', member => {
-    const channelId = '991020606587822181'; // The Channel ID you just copied
+    switch(member.guild.id) {
+        case '991002551979737109':
+            var channelId = '991020606587822181';
+        case '875245594355068958':
+            var channelId = '994376068293202101';
+    }
     const welcomeMessage = `Hey <@${member.id}>! Welcome to my server!`;
     member.guild.channels.fetch (channelId).then ( channel => {
         channel.send(welcomeMessage)
