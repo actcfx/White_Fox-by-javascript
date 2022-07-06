@@ -1,6 +1,12 @@
 const Discord = require('discord.js');      //# 引用discord.py並賦予到常數Discord上
 const { token } = require('./token.json');      //# 宣告一個Discord(discord.js)下的Client方法，然後將Client方法的結果賦予到client這個常數上，之後要引用discord.js底下的Client，可以直接呼叫client。
-const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] });
+const client = new Discord.Client({
+    intents: [
+        Discord.Intents.FLAGS.GUILD_MESSAGES,
+        Discord.Intents.FLAGS.GUILDS,
+        Discord.Intents.FLAGS.GUILD_MEMBERS
+    ]
+});
 
 // 連上線時的事件
 client.on('ready', () => {
@@ -10,7 +16,7 @@ client.on('ready', () => {
 client.on('guildMemberAdd', member => {
     const channelId = '991020606587822181'; // The Channel ID you just copied
     const welcomeMessage = `Hey <@${member.id}>! Welcome to my server!`;
-    member.guild.cache.get(channelId).then(channel => {
+    member.guild.channels.fetch (channelId).then ( channel => {
         channel.send(welcomeMessage)
     });
 });
