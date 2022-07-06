@@ -7,9 +7,13 @@ client.on('ready', () => {
     console.log(`->Logged in as ${client.user.tag}!`)
 });
 
-client.on('guildMemberAdd', member =>{
-    console.log(`-> ${member} join`)
-})
+client.on('guildMemberAdd', member => {
+    const channelId = '991020606587822181'; // The Channel ID you just copied
+    const welcomeMessage = `Hey <@${member.id}>! Welcome to my server!`;
+    member.guild.cache.get(channelId).then(channel => {
+        channel.send(welcomeMessage)
+    });
+});
 
 // 當有人傳送訊息時的事件
 client.on('messageCreate', msg => {
@@ -20,9 +24,11 @@ client.on('messageCreate', msg => {
     } catch (err) {
         return;
     }
-    // 字串分析
+
+    // 防呆
     try {
         const prefix = '/';     //# 定義前綴詞
+        // /指令
         if (msg.content.substring(0, prefix.length) === prefix) {     //# 判斷是否有前綴詞
             const cmd = msg.content.substring(prefix.length).split(' ');     //# 以' '分割前綴以後的字串 => cmd
             if (msg.channel.id === '992721929008066591' || msg.channel.id === '992026961494941726') {
@@ -55,6 +61,8 @@ client.on('messageCreate', msg => {
             }
             else {}
         }
+
+        // 非/指令
         else if (msg.content === 'mdfk') {
             msg.channel.send(`mdfk`);
             console.log(`-> Send 'mdfk' to '${msg.channel.name}'`)
@@ -63,6 +71,7 @@ client.on('messageCreate', msg => {
             msg.channel.send('好笑嗎');
             console.log(`-> Send '好笑嗎' to '${msg.channel.name}'`)
         }
+    
     } catch (err) {
         console.log('OnMessageError', err)
     }
@@ -83,20 +92,28 @@ function GetMyAvatar(msg)
 }
 
 function GetBotAvatar(){
-    return{
-        files:[{
-            attachment: client.user.displayAvatarURL(),
-            name: 'Botavatar.jpg'
-        }]
+    try{
+        return{
+            files:[{
+                attachment: client.user.displayAvatarURL(),
+                name: 'Botavatar.jpg'
+            }]
+        }
+    } catch (err) {
+        console.log('GetBotAvatarError')
     }
 }
 
 function Luck(){
-    _luck = Math.floor(Math.random()*7)
-    return{
-        files: [{
-            attachment: `./luck_image/luck_${_luck}.jpg`
-        }]
+    try{
+        _luck = Math.floor(Math.random()*7)
+        return{
+            files: [{
+                attachment: `./luck_image/luck_${_luck}.jpg`
+            }]
+        }
+    } catch (err) {
+        console.log('LuckError')
     }
 }
 
