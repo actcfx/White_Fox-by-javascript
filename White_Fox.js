@@ -27,7 +27,7 @@ client.on('guildMemberAdd', member => {
 });
 
 // 當有人傳送訊息時的事件
-client.on('message', msg => {
+client.on('messageCreate', msg => {
     // 前置判斷
     try {
         if (!msg.guild || !msg.member) return;  //# 如果訊息中存在guild（群組）元素 -> 私聊 -> return
@@ -45,6 +45,9 @@ client.on('message', msg => {
             if (msg.channel.id === '992721929008066591' || msg.channel.id === '992026961494941726') {
                 switch (cmd[0]) {
                     case 'ping':
+                        setTimeout(() => {
+                            msg.delete();
+                        }, 100);
                         msg.channel.send('ping');
                         console.log(`-> Send 'ping' to '${msg.channel.name}'`)
                         break;
