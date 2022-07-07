@@ -47,8 +47,12 @@ client.on('messageCreate', msg => {
                     case 'ping':
                         setTimeout(() => {
                             msg.delete();
-                        }, 100);
-                        msg.channel.send('ping');
+                        }, 1000);
+                        if (cmd[1] === undefined) {
+                            msg.channel.send('ping');
+                        } else {
+                            msg.channel.send(cmd[1]);
+                        }
                         console.log(`-> Send 'ping' to '${msg.channel.name}'`)
                         break;
                     case '老婆':
