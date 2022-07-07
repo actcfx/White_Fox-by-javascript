@@ -13,6 +13,7 @@ client.on('ready', () => {
     console.log(`->Logged in as ${client.user.tag}!`)
 });
 
+// 成員加入時的事件
 client.on('guildMemberAdd', member => {
     switch(member.guild.id) {
         case '991002551979737109':
@@ -30,7 +31,7 @@ client.on('guildMemberAdd', member => {
 client.on('messageCreate', msg => {
     // 前置判斷
     try {
-        if (!msg.guild || !msg.member) return;  //# 如果訊息中存在guild（群組）元素 -> 私聊 -> return
+        if (!msg.guild || !msg.member) return;  //# 如果訊息中不存在guild（群組）元素 or 訊息非由成員發送 -> 私聊 -> return
         if (msg.member.user.bot) return; //# 如果訊息由bot發送 -> return
     } catch (err) {
         return;
@@ -41,7 +42,7 @@ client.on('messageCreate', msg => {
         const prefix = '/';     //# 定義前綴詞
         // /指令
         if (msg.content.substring(0, prefix.length) === prefix) {     //# 判斷是否有前綴詞
-            const cmd = msg.content.substring(prefix.length).split(' ');     //# 以' '分割前綴以後的字串 => cmd
+            const cmd = msg.content.substring(prefix.length).split(' ');     //# 以' '分割前綴以後的字串 => cmd[0] , cmd[1]...
             if (msg.channel.id === '992721929008066591' || msg.channel.id === '992026961494941726') {
                 switch (cmd[0]) {
                     case 'ping':
@@ -50,10 +51,11 @@ client.on('messageCreate', msg => {
                         }, 1000);
                         if (cmd[1] === undefined) {
                             msg.channel.send('ping');
+                            console.log(`-> Send 'ping' to '${msg.channel.name}'`)
                         } else {
                             msg.channel.send(cmd[1]);
+                            console.log(`-> Send '${cmd[1]}' to '${msg.channel.name}'`)
                         }
-                        console.log(`-> Send 'ping' to '${msg.channel.name}'`)
                         break;
                     case '老婆':
                         if(msg.author.id === '407881227270356994') msg.reply("嗨！");
