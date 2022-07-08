@@ -10,7 +10,7 @@ const client = new Discord.Client ({
 
 // 連上線時的事件
 client.on('ready', () => {
-    console.log(`->Logged in as ${client.user.tag}!`)
+    console.log(`-> Logged in as ${client.user.tag}!`)
 });
 
 // 成員加入時的事件
@@ -18,12 +18,14 @@ client.on('guildMemberAdd', member => {
     switch(member.guild.id) {
         case '991002551979737109':
             var channelId = '991020606587822181';
+            break;
         case '875245594355068958':
             var channelId = '994376068293202101';
+            break;
     }
-    const welcomeMessage = `Hey <@${member.id}>! Welcome to my server!`;
     member.guild.channels.fetch(channelId).then ( channel => {
-        channel.send(welcomeMessage)
+        channel.send(`歡迎 <@${member.id}> 加入${member.guild.name}伺服器，玩的開心！`)
+        console.log(`-> <@${member.id}> join ${member.guild.name} server`)
     });
 });
 
@@ -58,9 +60,13 @@ client.on('messageCreate', msg => {
                         }
                         break;
                     case '老婆':
-                        if(msg.author.id === '407881227270356994') msg.reply("嗨！");
-                        else msg.reply("你沒有老婆！");
-                        console.log(`-> Reply '你沒有老婆！' to ${msg.author.tag}`)
+                        if(msg.author.id === '407881227270356994') {
+                            msg.reply("嗨！");
+                            console.log(`-> Reply '老婆！' to ${msg.author.tag}`)
+                        } else {
+                            msg.reply("你沒有老婆！");
+                            console.log(`-> Reply '你沒有老婆！' to ${msg.author.tag}`)
+                        }
                         break;
                     case 'MyAvatar':
                         const avatar = GetMyAvatar(msg);
@@ -81,7 +87,6 @@ client.on('messageCreate', msg => {
             }
             else {}
         }
-
         // 非/指令
         else if (msg.content === 'mdfk') {
             msg.channel.send(`mdfk`);
@@ -91,7 +96,6 @@ client.on('messageCreate', msg => {
             msg.channel.send('好笑嗎');
             console.log(`-> Send '好笑嗎' to '${msg.channel.name}'`)
         }
-    
     } catch (err) {
         console.log('OnMessageError', err)
     }
