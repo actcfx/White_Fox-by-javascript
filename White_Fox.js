@@ -25,9 +25,25 @@ client.on('guildMemberAdd', member => {
     }
     member.guild.channels.fetch(channelId).then ( channel => {
         channel.send(`歡迎 <@${member.id}> 加入${member.guild.name}伺服器，玩的開心！`)
-        console.log(`-> <@${member.id}> join ${member.guild.name} server`)
+        console.log(`-> <@${member.id}> join '${member.guild.name}' server`)
     });
 });
+
+//成員離開時的事件
+client.on('guildMemberRemove', member =>{
+    switch(member.guild.id) {
+        case '991002551979737109':
+            var channelId = '991020606587822181';
+            break;
+        case '875245594355068958':
+            var channelId = '994376068293202101';
+            break;
+    }
+    member.guild.channels.fetch(channelId).then ( channel => {
+        channel.send(`<@${member.id}> 離開了${member.guild.name}伺服器，一路好走！`)
+        console.log(`-> <@${member.id}> leave '${member.guild.name}' server`)
+    });
+})
 
 // 當有人傳送訊息時的事件
 client.on('messageCreate', msg => {
@@ -133,7 +149,7 @@ function Luck(){
         _luck = Math.floor(Math.random()*7)
         return{
             files: [{
-                attachment: `./luck_image/luck_${_luck}.jpg`
+                attachment: `./White_Fox.js/luck_image/luck_${_luck}.jpg`
             }]
         }
     } catch (err) {
