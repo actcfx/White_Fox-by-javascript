@@ -25,7 +25,7 @@ client.on('guildMemberAdd', member => {
     }
     member.guild.channels.fetch(channelId).then ( channel => {
         channel.send(`歡迎 <@${member.id}> 加入${member.guild.name}伺服器，玩的開心！`)
-        console.log(`-> <@${member.id}> join '${member.guild.name}' server`)
+        console.log(`-> ${member.user.tag} join '${member.guild.name}' server`)
     });
 });
 
@@ -41,7 +41,7 @@ client.on('guildMemberRemove', member =>{
     }
     member.guild.channels.fetch(channelId).then ( channel => {
         channel.send(`<@${member.id}> 離開了${member.guild.name}伺服器，一路好走！`)
-        console.log(`-> <@${member.id}> leave '${member.guild.name}' server`)
+        console.log(`-> ${member.user.tag} leave '${member.guild.name}' server`)
     });
 })
 
@@ -64,9 +64,6 @@ client.on('messageCreate', msg => {
             if (msg.channel.id === '992721929008066591' || msg.channel.id === '992026961494941726') {
                 switch (cmd[0]) {
                     case 'ping':
-                        setTimeout(() => {
-                            msg.delete();
-                        }, 1000);
                         if (cmd[1] === undefined) {
                             msg.channel.send('ping');
                             console.log(`-> Send 'ping' to '${msg.channel.name}'`)
@@ -74,11 +71,14 @@ client.on('messageCreate', msg => {
                             msg.channel.send(cmd[1]);
                             console.log(`-> Send '${cmd[1]}' to '${msg.channel.name}'`)
                         }
+                        setTimeout(() => {
+                            msg.delete();
+                        }, 1000);
                         break;
                     case '老婆':
                         if(msg.author.id === '407881227270356994') {
                             msg.reply("嗨！");
-                            console.log(`-> Reply '老婆！' to ${msg.author.tag}`)
+                            console.log(`-> Reply '嗨！' to ${msg.author.tag}`)
                         } else {
                             msg.reply("你沒有老婆！");
                             console.log(`-> Reply '你沒有老婆！' to ${msg.author.tag}`)
